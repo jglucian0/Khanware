@@ -79,9 +79,27 @@ document.querySelector("link[rel~='icon']").href = 'https://r2.e-z.host/4d0a0bea
 async function showSplashScreen() { splashScreen.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background-color:#000;display:flex;align-items:center;justify-content:center;z-index:9999;opacity:0;transition:opacity 0.5s ease;user-select:none;color:white;font-family:MuseoSans,sans-serif;font-size:30px;text-align:center;"; splashScreen.innerHTML = '<span style="color:white;">KHANWARE</span><span style="color:#72ff72;">.SPACE</span>'; document.body.appendChild(splashScreen); setTimeout(() => splashScreen.style.opacity = '1', 10);};
 async function hideSplashScreen() { splashScreen.style.opacity = '0'; setTimeout(() => splashScreen.remove(), 1000); };
 
-async function loadScript(url, label) { return fetch(url).then(response => response.text()).then(script => { loadedPlugins.push(label); eval(script); }); }
-async function loadCss(url) { return new Promise((resolve) => { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = url; link.onload = () => resolve(); document.head.appendChild(link); }); }
+async function loadScript(url, label) { 
+    const cacheBustedUrl = url + (url.includes('?') ? '&' : '?') + 't=' + Date.now();
+    return fetch(cacheBustedUrl)
+        .then(response => response.text())
+        .then(script => { 
+            loadedPlugins.push(label); 
+            eval(script); 
+        }); 
+}
 
+async function loadCss(url) { 
+    const cacheBustedUrl = url + (url.includes('?') ? '&' : '?') + 't=' + Date.now();
+    return new Promise((resolve) => { 
+        const link = document.createElement('link'); 
+        link.rel = 'stylesheet'; 
+        link.type = 'text/css'; 
+        link.href = cacheBustedUrl; 
+        link.onload = () => resolve(); 
+        document.head.appendChild(link); 
+    }); 
+}
 /* Repo Fallback */
 async function initializeRepoPath() {
     for (const cdn of availableCDNs) {

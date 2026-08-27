@@ -611,50 +611,6 @@ const applyAnswers = (bodyObj, answers) => {
     return bodyObj;
 };
 const modifyItemData = (itemData) => {
-    if (itemData.question.content?.[0] === itemData.question.content[0].toUpperCase()) {
-        itemData.answerArea = { 
-            calculator: false, 
-            chi2Table: false, 
-            periodicTable: false, 
-            tTable: false, 
-            zTable: false 
-        };
-        
-        itemData.question.content = phrases[Math.floor(Math.random() * phrases.length)] + 
-            `\n\n**${t('spoof_question')}**` + 
-            `[[☃ radio 1]]` + 
-            `\n\n${t('spoof_donate')}`;
-        
-        itemData.question.widgets = {
-            "radio 1": {
-                type: "radio", 
-                alignment: "default", 
-                static: false, 
-                graded: true,
-                options: {
-                    choices: [
-                        { 
-                            content: t('spoof_choice_correct'), 
-                            correct: true, 
-                            id: "correct-choice" 
-                        },
-                        { 
-                            content: t('spoof_choice_incorrect'), 
-                            correct: false, 
-                            id: "incorrect-choice" 
-                        }
-                    ],
-                    randomize: false, 
-                    multipleSelect: false, 
-                    displayCount: null, 
-                    deselectEnabled: false
-                },
-                version: { major: 1, minor: 0 }
-            }
-        };
-        
-        return true;
-    }
     return false;
 };
 
