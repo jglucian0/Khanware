@@ -603,53 +603,7 @@ ${JSON.stringify(usedWidgets)}`;
             bodyObj.variables.input.attemptState = JSON.stringify(state);
             return bodyObj;
         };
-        const modifyItemData = (itemData) => {
-            if (itemData.question.content?.[0] === itemData.question.content[0].toUpperCase()) {
-                itemData.answerArea = { 
-                    calculator: false, 
-                    chi2Table: false, 
-                    periodicTable: false, 
-                    tTable: false, 
-                    zTable: false 
-                };
-                
-                itemData.question.content = phrases[Math.floor(Math.random() * phrases.length)] + 
-                    `\n\n**Where should you get your scripts?**` + 
-                    `[[☃ radio 1]]` + 
-                    `\n\n**💎 Want your message to be read by EVERYONE using Khanware?** \nDonate [Here](https://livepix.gg/nixyy)!`;
-                
-                itemData.question.widgets = {
-                    "radio 1": {
-                        type: "radio", 
-                        alignment: "default", 
-                        static: false, 
-                        graded: true,
-                        options: {
-                            choices: [
-                                { 
-                                    content: "**I Can Say** and **Platform Destroyer**.", 
-                                    correct: true, 
-                                    id: "correct-choice" 
-                                },
-                                { 
-                                    content: "Any other **gay** script kiddie.", 
-                                    correct: false, 
-                                    id: "incorrect-choice" 
-                                }
-                            ],
-                            randomize: false, 
-                            multipleSelect: false, 
-                            displayCount: null, 
-                            deselectEnabled: false
-                        },
-                        version: { major: 1, minor: 0 }
-                    }
-                };
-                
-                return true;
-            }
-            return false;
-        };
+        const modifyItemData = (itemData) => itemData;
 
         const spoofAttemptResponse = async (res) => {
             if (!res || !res.ok) return res;
