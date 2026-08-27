@@ -35,20 +35,15 @@ let KWSection;
 window.features = {
     questionSpoof: true,
     videoSpoof: true,
-    /* showAnswers: false, */
     autoAnswer: false,
-    /* workerBees: false, */
-    customBanner: false,
     nextRecomendation: false,
     repeatQuestion: false,
-    minuteFarmer: false,
-    rgbLogo: false
+    minuteFarmer: false
 };
 window.featureConfigs = {
     autoAnswerDelay: 3,
-    customUsername: "",
-    customPfp: "",
-    openRouterKey: ""
+    openRouterKey: "",
+    openRouterModel: "openrouter/free"
 };
 
 /* Localization */
@@ -63,11 +58,6 @@ const findAndClickBySelector = selector => { const element = document.querySelec
 function sendToast(text, duration=5000, gravity='bottom') { Toastify({ text: text, duration: duration, gravity: gravity, position: "center", stopOnFocus: true, style: { background: "#000000" } }).showToast(); debug(text); };
 
 window.debug = function(text){};
-
-/* Security */
-document.addEventListener('contextmenu', (e) => !window.disableSecurity && e.preventDefault());
-document.addEventListener('keydown', (e) => { if (!window.disableSecurity && (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'C', 'J'].includes(e.key)))) { e.preventDefault(); } });
-console.log(Object.defineProperties(new Error, { toString: {value() {(new Error).stack.includes('toString@') && location.reload();}}, message: {get() {location.reload();}}, }));
 
 /* Misc Styles */
 document.head.appendChild(Object.assign(document.createElement("style"), {
@@ -121,23 +111,15 @@ function setupMenu() {
     plppdo.on("domChanged",(()=>{if(document.getElementById("khanwareTab"))return;const e=document.querySelector('nav[data-testid="side-nav"]');e&&(KWSection=document.createElement("section"),KWSection.id="khanwareTab",KWSection.className="_evg4u4",KWSection.innerHTML='<h2 class="_e3ps3qj">Khanware</h2>',e.appendChild(KWSection))}));
     loadScript(repoPath+'visuals/mainMenu.js', 'mainMenu');
     loadScript(repoPath+'visuals/statusPanel.js', 'statusPanel');
-    loadScript(repoPath+'visuals/donationOverlay.js', 'donationOverlay');
-    loadScript(repoPath+'visuals/viewCounter.js', 'viewCounter');
     if(isDev) loadScript(repoPath+'visuals/devTab.js', 'devTab');
     loadScript(repoPath+'visuals/tweaksTab.js', 'tweaksTab');
 }
 
-/* Main Functions */ 
 function setupMain(){
     loadScript(repoPath+'functions/questionSpoof.js', 'questionSpoof');
     loadScript(repoPath+'functions/videoSpoof.js', 'videoSpoof');
     loadScript(repoPath+'functions/minuteFarm.js', 'minuteFarm');
-    loadScript(repoPath+'functions/spoofUser.js', 'spoofUser');
-    /* loadScript(repoPath+'functions/answerRevealer.js', 'answerRevealer'); */
-    loadScript(repoPath+'functions/rgbLogo.js', 'rgbLogo');
-    loadScript(repoPath+'functions/customBanner.js', 'customBanner');
     loadScript(repoPath+'functions/autoAnswer.js', 'autoAnswer');
-    /* loadScript(repoPath+'functions/workerBees.js', 'workerBees'); */
 }
 
 /* Inject */
