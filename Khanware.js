@@ -4,7 +4,7 @@ let isDev = false;
 let repoPath;
 
 const availableCDNs = [
-    `https://raw.githubusercontent.com/Niximkk/Khanware/refs/heads/${isDev ? "dev" : "main"}/`,
+    `https://raw.githubusercontent.com/jglucian0/teste/refs/heads/${isDev ? "dev" : "main"}/`,
     `https://cdn.jsdelivr.net/gh/niximkk/khanware@${isDev ? "dev" : "master"}/`,
     `https://cdn.statically.io/gh/Niximkk/Khanware/refs/heads/${isDev ? "dev" : "main"}/`
 ];

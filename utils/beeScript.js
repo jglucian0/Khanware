@@ -476,25 +476,6 @@ const applyAnswers = (bodyObj, answers) => {
     return bodyObj;
 };
 const modifyItemData = (itemData) => {
-    if (itemData.question.content?.[0] === itemData.question.content[0].toUpperCase()) {
-        itemData.answerArea = { calculator: false, chi2Table: false, periodicTable: false, tTable: false, zTable: false };
-        itemData.question.content = "Q?[[☃ radio 1]]";
-        itemData.question.widgets = {
-           "radio 1": {
-               type: "radio", alignment: "default", static: false, graded: true,
-               options: {
-                   choices: [
-                       { content: "A", correct: true, id: "correct-choice" },
-                       { content: "B", correct: false, id: "incorrect-choice" }
-                   ],
-                   randomize: false, multipleSelect: false, displayCount: null, deselectEnabled: false
-               },
-               version: { major: 1, minor: 0 }
-           }
-        };
-        
-        return true;
-    }
     return false;
 };
 
