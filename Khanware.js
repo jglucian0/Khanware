@@ -4,8 +4,8 @@ let isDev = false;
 let repoPath;
 
 const availableCDNs = [
-    `https://raw.githubusercontent.com/jglucian0/teste/refs/heads/${isDev ? "dev" : "main"}/`,
-    `https://cdn.jsdelivr.net/gh/jglucian0/teste@${isDev ? "dev" : "main"}/`
+    `https://raw.githubusercontent.com/jglucian0/Khanware/refs/heads/${isDev ? "dev" : "main"}/`,
+    `https://cdn.jsdelivr.net/gh/jglucian0/Khanware@${isDev ? "dev" : "main"}/`
 ];
 
 let device = {
