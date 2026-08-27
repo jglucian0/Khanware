@@ -8,40 +8,25 @@ const baseSelectors = [
 
 let khanwareDominates = true;
 
-// Bypass na proteção do React 16+ para inputs convencionais
-const dispatchReactEvent = (element, value) => {
-    const prototype = Object.getPrototypeOf(element);
-    const setter = Object.getOwnPropertyDescriptor(prototype, 'value')?.set
-        || Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
-
-    if (setter) setter.call(element, value);
-    element.dispatchEvent(new Event('input', { bubbles: true }));
-};
-
-// Engana a engine do MathQuill simulando a digitação humana
-const simulateMathQuill = (textarea, key) => {
-    textarea.focus();
-    textarea.dispatchEvent(new KeyboardEvent('keydown', { key: key, bubbles: true, cancelable: true }));
-    textarea.dispatchEvent(new KeyboardEvent('keypress', { key: key, bubbles: true, cancelable: true }));
-    textarea.value = key;
-    textarea.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
-    textarea.dispatchEvent(new KeyboardEvent('keyup', { key: key, bubbles: true, cancelable: true }));
-};
-
 const fillDummyData = () => {
-    // 1. Inputs Matemáticos (MathQuill)
-    document.querySelectorAll('.mq-textarea textarea').forEach(ta => {
-        simulateMathQuill(ta, "0");
+    // 1. MathQuill e Inputs Genéricos via API nativa do navegador
+    const textInputs = document.querySelectorAll('.mq-textarea textarea, input[type="text"]:not([class*="mq"]), input[type="number"]');
+
+    textInputs.forEach(input => {
+        // Evita re-inserções desnecessárias que gerariam loops de eventos
+        if (!input.value) {
+            input.focus();
+            // O execCommand injeta o texto gerando o InputEvent nativo perfeito
+            document.execCommand('insertText', false, '0');
+        }
     });
 
-    // 2. Inputs Textuais e Numéricos Genéricos
-    document.querySelectorAll('input[type="text"]:not([class*="mq"]), input[type="number"]').forEach(input => {
-        dispatchReactEvent(input, "0");
-    });
-
-    // 3. Múltipla Escolha
+    // 2. Múltipla Escolha
+    console.log("testee")
     const firstRadio = document.querySelector('input[type="radio"], input[type="checkbox"], [role="radio"]');
-    if (firstRadio && !firstRadio.checked) firstRadio.click();
+    if (firstRadio && !firstRadio.checked) {
+        firstRadio.click();
+    }
 };
 
 (async () => {
