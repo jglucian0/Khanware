@@ -37,10 +37,6 @@ function setupMain(){
         const model = 'openrouter/free';
 
         const phrases = [ 
-            "🔥 Get good, get [**Khanware**](https://github.com/Niximkk/khanware/)!",
-            "🤍 Made by [**@im.nix**](https://e-z.bio/sounix).",
-            "☄️ By [**Niximkk/khanware**](https://github.com/Niximkk/khanware/).",
-            "🌟 Star the project on [GitHub](https://github.com/Niximkk/khanware/)!"
         ];
 
         const originalFetch = window.fetch;
