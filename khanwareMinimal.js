@@ -573,72 +573,32 @@ ${JSON.stringify(usedWidgets)}`;
                         state[a.widgetKey].labelInterval = a.labelInterval;
                         state[a.widgetKey].starting = a.starting;
                         state[a.widgetKey].picUrl = a.picUrl;
-                        state[a.widgetKey].picSize = 30;
-                        state[a.widgetKey].picBoxHeight = 36;
-                        state[a.widgetKey].plotDimensions = [380, 300];
-                        state[a.widgetKey].alignment = "default";
-                        state[a.widgetKey].static = false;
-                        state[a.widgetKey].dependencies = { analytics: {} };
                     }
                 }
                 else if (a.type === 'matrix') {
-                    const stringAnswers = a.answers.map(row => row.map(val => String(val)));
-                    
-                    content.push({ answers: stringAnswers });
-                    userInput[a.widgetKey] = { answers: stringAnswers };
-                    
+                    content.push(a.answers);
+                    userInput[a.widgetKey] = a.answers;
                     if (state?.[a.widgetKey]) {
-                        state[a.widgetKey].answers = stringAnswers;
-                        state[a.widgetKey].cursorPosition = a.cursorPosition || [0, 0];
-                        state[a.widgetKey].matrixBoardSize = a.matrixBoardSize || [3, 3];
-                        state[a.widgetKey].prefix = a.prefix || "";
-                        state[a.widgetKey].suffix = a.suffix || "";
-                        state[a.widgetKey].alignment = "default";
-                        state[a.widgetKey].dependencies = { analytics: {} };
-                        state[a.widgetKey].static = false;
+                        state[a.widgetKey].answers = a.answers;
                     }
                 }
                 else if (a.type === 'table') {
-                    content.push({ answers: a.answers });
-                    userInput[a.widgetKey] = { answers: a.answers };
+                    content.push(a.answers);
+                    userInput[a.widgetKey] = a.answers;
+                    if (state?.[a.widgetKey]) {
+                        state[a.widgetKey].answers = a.answers;
+                    }
                 }
                 else if (a.type === 'label-image') {
-                    const markersWithAnswers = a.markers.map(marker => ({
-                        label: marker.label,
-                        selected: marker.answers
-                    }));
-                    
-                    content.push(null);
-                    content.push({ markers: markersWithAnswers });
-                    
-                    userInput[a.widgetKey] = { markers: markersWithAnswers };
-                    
+                    content.push({ markers: a.markers });
+                    userInput[a.widgetKey] = { markers: a.markers };
                     if (state?.[a.widgetKey]) {
-                        state[a.widgetKey].markers = a.markers.map(marker => ({
-                            label: marker.label,
-                            x: marker.x,
-                            y: marker.y,
-                            selected: marker.answers
-                        }));
-                        state[a.widgetKey].choices = a.choices;
-                        state[a.widgetKey].imageUrl = a.imageUrl;
-                        state[a.widgetKey].imageWidth = a.imageWidth;
-                        state[a.widgetKey].imageHeight = a.imageHeight;
-                        state[a.widgetKey].imageAlt = a.imageAlt;
-                        state[a.widgetKey].multipleAnswers = a.multipleAnswers;
-                        state[a.widgetKey].hideChoicesFromInstructions = a.hideChoicesFromInstructions;
-                        state[a.widgetKey].static = false;
-                        state[a.widgetKey].alignment = "default";
+                        state[a.widgetKey].markers = a.markers;
                     }
                 }
             });
 
-            answers.filter(a => a.type === 'numeric-input').forEach(a => content.push({ currentValue: a.value }));
-            
-            bodyObj.variables.input.attemptContent = JSON.stringify([content, []]);
-            bodyObj.variables.input.userInput = JSON.stringify(userInput);
-            if (state) bodyObj.variables.input.attemptState = JSON.stringify(state);
-            
+            bodyObj.variables.input.attemptState = JSON.stringify(state);
             return bodyObj;
         };
         const modifyItemData = (itemData) => {
